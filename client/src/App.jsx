@@ -13,10 +13,10 @@ function App() {
     <div>
 <BrowserRouter>
 <Routes>
-  {/* <Route path='/' element={<User/>}/> */}
+ 
   <Route path='/' element={<Users/>}/>
   <Route path='/create' element={<CreateUser/>}/>
-  <Route path='/update' element={<UpdateUser/>}/>
+  <Route path='/update/:id' element={<UpdateUser/>}/>
 </Routes>
 </BrowserRouter>
 
