@@ -9,51 +9,49 @@ function UpdateUser() {
   const [age, setAge] = useState("");
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    const fetchUser = async () => {
-      if (id) {
-        try {
-          const result = await axios.get(`http://localhost:3001/getUser/${id}`);
+    if (id) {
+      axios
+        .get(`http://localhost:3001/getUser/${id}`)
+        .then((result) => {
+          console.log(result);
           setName(result.data.name);
           setEmail(result.data.email);
           setAge(result.data.age);
-        } catch (err) {
+        })
+        .catch((err) => {
           console.error("Error fetching user:", err);
           alert("Error fetching user data. Please try again later.");
-        }
-      } else {
-        console.error("User ID is undefined");
-      }
-    };
-  
-    fetchUser();
+        });
+    } else {
+      console.error("User ID is undefined");
+    }
   }, [id]);
 
-
-  const handleUpdate = async (e) => {
+  const update = (e) => {
     e.preventDefault();
     if (id) {
-      try {
-        const result = await axios.put(`http://localhost:3001/updateUser/${id}`, { name, email, age });
-        console.log(result)
-        navigate("/");
-      } catch (err) {
-        console.error("Error updating user:", err);
-        alert("Error updating user data. Please try again later.");
-      }
+      axios
+        .put(`http://localhost:3001/updateUser/${id}`, { name, email, age })
+        .then((result) => {
+          console.log(result);
+          navigate("/");
+        })
+        .catch((err) => {
+          console.error("Error updating user:", err);
+          alert("Error updating user data. Please try again later.");
+        });
     } else {
       console.error("User ID is undefined");
     }
   };
-  
 
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h2 className="text-center mb-4">Update User</h2>
-          <form onSubmit={handleUpdate}>
+          <form onSubmit={update}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input

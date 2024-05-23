@@ -3,20 +3,35 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Users() {
-  const [users, setUsers] = useState([])
-  useEffect(()=>{
-    axios.get('http://localhost:3001')
-    .then(result=> setUsers(result.data) )
-    .catch(err => console.log(err))
-  },[])
-const handleDelete = (id) =>{
-    axios.delete('http://localhost:3001/deleteUser/'+id,)
-    .then(res=> {console.log(res)
-        window.location.reload()
+
+  const [users, setUsers] = useState([]);
+
+
+  // Get All Users
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get("http://localhost:3001/get-users");
+        console.log(result.data)
+        setUsers(result.data);
+
+      } catch (err) {
+        console.error("Error fetching users:", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await axios.delete("http://localhost:3001/deleteUser/" + id);
+      console.log(res);
+      window.location.reload();
+    } catch (err) {
+      console.error("Error deleting user:", err);
     }
-    )
-    .catch(err => console.log(err))
-}
+  };
+  
 
   return (
     <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
@@ -40,10 +55,15 @@ const handleDelete = (id) =>{
                 <td>{user.email}</td>
                 <td>{user.age}</td>
                 <td>
-                <Link to={`/update/${user._id}`} className="btn btn-primary">
-          update
-        </Link>
-                  <button className="btn btn-danger" onClick={(e)=> handleDelete(user._id)}>Delete</button>
+                  <Link to={`/update/${user._id}`} className="btn btn-primary">
+                    update
+                  </Link>
+                  <button
+                    className="btn btn-danger"
+                    onClick={(e) => handleDelete(user._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -54,4 +74,4 @@ const handleDelete = (id) =>{
   );
 }
 
-export default Users
+export default Users;
