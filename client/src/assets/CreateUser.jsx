@@ -13,7 +13,8 @@ function CreateUser() {
     
     e.preventDefault();
     try {
-      const result = await axios.post("http://localhost:3001/api/v1/user/createUser", { name, email, age });
+      const result = await axios.post("http://localhost:3001/api/v1/user/createUser", 
+      { name, email, age });
       console.log(result);
       navigate("/");
     } catch (err) {
@@ -34,6 +35,7 @@ function CreateUser() {
                 class="form-control"
                 id="name"
                 placeholder="Enter name"
+                value={name} 
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
@@ -44,6 +46,7 @@ function CreateUser() {
                 class="form-control"
                 id="email"
                 placeholder="Enter email"
+                value={email} 
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -54,6 +57,7 @@ function CreateUser() {
                 class="form-control"
                 id="age"
                 placeholder="Enter age"
+                value={age} 
                 onChange={(e) => setAge(e.target.value)}
               />
             </div>
