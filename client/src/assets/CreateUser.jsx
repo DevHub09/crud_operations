@@ -13,7 +13,7 @@ function CreateUser() {
     
     e.preventDefault();
     try {
-      const result = await axios.post("http://localhost:3001/createUser", { name, email, age });
+      const result = await axios.post("http://localhost:3001/api/v1/user/createUser", { name, email, age });
       console.log(result);
       navigate("/");
     } catch (err) {

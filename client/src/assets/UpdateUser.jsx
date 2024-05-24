@@ -14,7 +14,7 @@ function UpdateUser() {
     const fetchUser = async () => {
       if (id) {
         try {
-          const result = await axios.get(`http://localhost:3001/getUser/${id}`);
+          const result = await axios.get(`http://localhost:3001/api/v1/user/getUser/${id}`);
           setName(result.data.name);
           setEmail(result.data.email);
           setAge(result.data.age);
@@ -35,7 +35,7 @@ function UpdateUser() {
     e.preventDefault();
     if (id) {
       try {
-        const result = await axios.put(`http://localhost:3001/updateUser/${id}`, { name, email, age });
+        const result = await axios.put(`http://localhost:3001/api/v1/user/updateUser/${id}`, { name, email, age });
         console.log(result)
         navigate("/");
       } catch (err) {
