@@ -3,20 +3,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Users() {
-
   const [users, setUsers] = useState([]);
-
 
   // Get All Users
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get("http://localhost:3001/api/v1/user/get-users");
-        console.log(result.data)
+        const result = await axios.get(
+          "http://localhost:3001/api/v1/user/get-users"
+        );
+        console.log(result.data);
         setUsers(result.data);
-
-
-
       } catch (err) {
         console.error("Error fetching users:", err);
       }
@@ -26,15 +23,16 @@ function Users() {
 
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete("http://localhost:3001/api/v1/user/deleteUser/" + id);
+      const res = await axios.delete(
+        "http://localhost:3001/api/v1/user/deleteUser/" + id
+      );
+
       console.log(res);
       window.location.reload();
     } catch (err) {
       console.error("Error deleting user:", err);
     }
-
-};
-  
+  };
 
   return (
     <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
